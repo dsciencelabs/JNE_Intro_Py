@@ -1,0 +1,23 @@
+bookdown::gitbook:
+  pandoc_args: [ "--csl", "apa-old-doi-prefix.csl"]
+  toc_depth: 3
+  css: [style.css, toc.css]
+  config:
+    toc:
+      before: |
+        <li><center><img src="https://github.com/sainzdata/Py_JNE/blob/main/images/JNE_logo.png?raw=true" alt="logo" width="50%" height="50%"style="margin: 15px 0 0 0"></center></li>
+      after: |
+        <li><a href="https://github.com/sainzdata/Py_JNE" target="blank">Published with bookdown</a></li>
+    edit: https://github.com/sainzdata/Py_JNE/edit/master/%s
+    download: null
+    sharing:
+      github: yes
+      facebook: yes
+      linkedin: yes
+bookdown::pdf_book:
+  includes:
+    in_header: preamble.tex
+    latex_engine: xelatex
+    citation_package: natbib
+    keep_tex: yes
+bookdown::epub_book: default

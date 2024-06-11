@@ -1,0 +1,79 @@
+--- 
+title: "Modul Pelatihan JNE"
+subtitle: "Data Analytics With Phyton (Beginner)"
+author: "Penulis: Bakti Siregar, S.Si.,M.Sc"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: docs
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: sainzdata/Py_JNE
+description: "Materi ini diperuntukkan untuk pelatihan Analisis Data dengan menggunakan Python di JNE"
+---
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+
+# Connect R to Python
+library(reticulate)
+library(Rcpp)
+# conda_list()
+use_condaenv("Py3_10_4", required = F)
+```
+
+# Overview {-}
+
+Peran ilmu analisis data dalam era digital dan big data seperti sekarang ini snangatlah penting karena begitu melimpahnya data yang kita produksi setiap hari, baik itu dari akun media social, ecommerce, media, transportasi/ekpedisi online, youtube, game, perusahaan, dll. Data tersebut menyediakan informasi yang dapat menentukan keputusan penting dalam berbagai sektor industri. Contohnya, perusahaan pengiriman barang seperti di JNE dapat melakukan analisis data dari hal yang paling sederhana hingga kompleks; 
+
+*	Jumlah transaksi yang dilakukan konsumen setiap hari, minggu, bulan, dan tahunan
+*	Berapa banyak pengiriman tepat waktu, cacat (hilang), dan pengiriman terlambat
+*	Rata-rata waktu yang dibutuhkan untuk melakukan pengiriman barang dari suatu daerah ke berbagai daerah
+*	Mengetahui daerah asal dan tujuan pengiriman terbanyak di seluruh Indonesia
+* Pertumbuhan pengguna dari waktu ke waktu
+*	Jenis produk yang paling sering dikirimkan
+*	Mitra yang paling sering melakukan transaksi pengiriman barang
+*	Tren pertumbuhan customer, cost, dan profit perusahaan secara umum maupun parsial
+*	Analisis tingkat kepuasan pengguna
+*	Faktor yang mempengaruhi perpindahan pengguna ke competitor
+*	Dll.
+
+Seluruh transaksi pengguna tersebut adalah data yang perlu dipelajari dan dianalisis. Kemudian, dapat diambil keputusan maupun kebijakan bisnis yang dinilai lebih menguntungkan bagi perusahaan seperti melakukan promo, penentuan harga, optimasi operasional pengiriman, dan lain-lain. Semakin akurat analisis data, semakin baik keputusan yang diambil, maka semakin besar profit perusahaan. Banyaknya data dan faktor yang harus dipertimbangkan dalam menganalisis data tidak mudah untuk dilakukan dengan menggunakan alat bantu klasisk seperti Excel. Tren saat ini, analis data biasanya dilakukan dengan bantuan teknologi pemrograman computer seperti R, Python, dan SQL karena dapat digunakan untuk data yang besar dan lebih fleksibel.
+
+
+## Jadwal Pelatihan 
+
+* Day #1 (23 Sept 2022) ~ Pengenalan & Konsep Dasar Python
+* Day #2 (30 Sept 2022) ~ Persiapan Data
+* Day #3 (14 Okt 2022) ~ Visualisasi Data
+* Day #4 (21 Okt 2022) ~ Pemodelan
+* Day #5 (28 Okt 2022) ~ Studi Kasus
+
+**Catatan:** Setiap pertemuan akan ada penilian dan akan dikalkulasikan untuk menentukan kelulusan peserta.
+
+## Kewajiban & Hak Peserta
+
+* Membawa Laptop masing-masing
+* Hadir 15 menit sebelum acara di mulai
+* Daftar Hadir dan Evaluasi Peserta Pelatihan [Klik Disini](https://forms.office.com/r/tS77MwiuTQ)
+* Evaluasi PIC Learning [Klik Disini](https://docs.google.com/forms/d/e/1FAIpQLSfCCbD8lVLxno9fi9wOUyp-Wk0QRWYWzJe7g_7uTjZCqMlZVA/viewform)
+* Peserta akan mendapatkan Sertifikat (Kompetensi Data Analitics Beginer), bagi yang lulus dengan skor minimal 75. Jika tidak lulus maka akan diadakan remedi.
+* Setelah memberikan H+2 setelah training berakhir;
+  * Scan sertifikat
+  * Copy modul training
+
+## Tim Penyusun & Pemateri
+
+* Pemateri: Bakti Siregar, S.Si., M.Sc
+* Penulis, editor, dan asisten: 
+	* Yosia
+	* Clara Della Evania
+	* Karen Natalie	
+	* Brigita Tiara Elgityana Melantika	
+	
+
+

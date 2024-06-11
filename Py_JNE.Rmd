@@ -1,0 +1,1831 @@
+--- 
+title: "Modul Pelatihan JNE"
+subtitle: "Data Analytics With Phyton (Beginner)"
+author: "Penulis: Bakti Siregar, S.Si.,M.Sc"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: docs
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: sainzdata/Py_JNE
+description: "Materi ini diperuntukkan untuk pelatihan Analisis Data dengan menggunakan Python di JNE"
+---
+
+```{r include=FALSE}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+
+# Connect R to Python
+library(reticulate)
+library(Rcpp)
+# conda_list()
+use_condaenv("Py3_10_4", required = F)
+```
+
+# Overview {-}
+
+Peran ilmu analisis data dalam era digital dan big data seperti sekarang ini snangatlah penting karena begitu melimpahnya data yang kita produksi setiap hari, baik itu dari akun media social, ecommerce, media, transportasi/ekpedisi online, youtube, game, perusahaan, dll. Data tersebut menyediakan informasi yang dapat menentukan keputusan penting dalam berbagai sektor industri. Contohnya, perusahaan pengiriman barang seperti di JNE dapat melakukan analisis data dari hal yang paling sederhana hingga kompleks; 
+
+*	Jumlah transaksi yang dilakukan konsumen setiap hari, minggu, bulan, dan tahunan
+*	Berapa banyak pengiriman tepat waktu, cacat (hilang), dan pengiriman terlambat
+*	Rata-rata waktu yang dibutuhkan untuk melakukan pengiriman barang dari suatu daerah ke berbagai daerah
+*	Mengetahui daerah asal dan tujuan pengiriman terbanyak di seluruh Indonesia
+* Pertumbuhan pengguna dari waktu ke waktu
+*	Jenis produk yang paling sering dikirimkan
+*	Mitra yang paling sering melakukan transaksi pengiriman barang
+*	Tren pertumbuhan customer, cost, dan profit perusahaan secara umum maupun parsial
+*	Analisis tingkat kepuasan pengguna
+*	Faktor yang mempengaruhi perpindahan pengguna ke competitor
+*	Dll.
+
+Seluruh transaksi pengguna tersebut adalah data yang perlu dipelajari dan dianalisis. Kemudian, dapat diambil keputusan maupun kebijakan bisnis yang dinilai lebih menguntungkan bagi perusahaan seperti melakukan promo, penentuan harga, optimasi operasional pengiriman, dan lain-lain. Semakin akurat analisis data, semakin baik keputusan yang diambil, maka semakin besar profit perusahaan. Banyaknya data dan faktor yang harus dipertimbangkan dalam menganalisis data tidak mudah untuk dilakukan dengan menggunakan alat bantu klasisk seperti Excel. Tren saat ini, analis data biasanya dilakukan dengan bantuan teknologi pemrograman computer seperti R, Python, dan SQL karena dapat digunakan untuk data yang besar dan lebih fleksibel.
+
+
+## Jadwal Pelatihan 
+
+* Day #1 (23 Sept 2022) ~ Pengenalan & Konsep Dasar Python
+* Day #2 (30 Sept 2022) ~ Persiapan Data
+* Day #3 (14 Okt 2022) ~ Visualisasi Data
+* Day #4 (21 Okt 2022) ~ Pemodelan
+* Day #5 (28 Okt 2022) ~ Studi Kasus
+
+**Catatan:** Setiap pertemuan akan ada penilian dan akan dikalkulasikan untuk menentukan kelulusan peserta.
+
+## Kewajiban & Hak Peserta
+
+* Membawa Laptop masing-masing
+* Hadir 15 menit sebelum acara di mulai
+* Daftar Hadir dan Evaluasi Peserta Pelatihan [Klik Disini](https://forms.office.com/r/tS77MwiuTQ)
+* Evaluasi PIC Learning [Klik Disini](https://docs.google.com/forms/d/e/1FAIpQLSfCCbD8lVLxno9fi9wOUyp-Wk0QRWYWzJe7g_7uTjZCqMlZVA/viewform)
+* Peserta akan mendapatkan Sertifikat (Kompetensi Data Analitics Beginer), bagi yang lulus dengan skor minimal 75. Jika tidak lulus maka akan diadakan remedi.
+* Setelah memberikan H+2 setelah training berakhir;
+  * Scan sertifikat
+  * Copy modul training
+
+## Tim Penyusun & Pemateri
+
+* Pemateri: Bakti Siregar, S.Si., M.Sc
+* Penulis, editor, dan asisten: 
+	* Yosia
+	* Clara Della Evania
+	* Karen Natalie	
+	* Brigita Tiara Elgityana Melantika	
+	
+
+
+
+<!--chapter:end:index.Rmd-->
+
+# Pengenalan Python? {-}
+
+Python dalam pembelajaran ini bukanlah seokor binatang melata menyeramkan seperti yang kita banyangkan atau seekor ular besar yang pernah kita tonton di televisi.Tetapi, Python yang akan kita gunakan adalah sebuah bahasa pemrograman yang digunakan untuk membuat aplikasi, perintah komputer, dan melakukan analisis data.
+
+## Sejarah
+
+**Guido van Rossum** adalah seorang progammer yang pertama kali mendesain dan mengimplementasikan Python pada bulan Desember 1989. Projek ini mulai dikembangkan di Centrum Wiskunde & Informatice yang berpusat di Belanda. Awalnya, Guido bermaksud untuk memperbaiki sintak-sintak bermasalah pada Bahasa Pemrograman ABC yang pernah dikerjakan sebelumnya. Sehingga dalam perjalanannya bahasa pemrograman Python banyak dipengaruhi oleh bahasa pemrograman ABC. Menariknya, tidak seperti bahasa pemrograman lainnya yang banyak dikerjakan dan dirilis oleh perusahaan besar dengan melibatkan para profesional. Python justru dikembangkan secara berkesinambungan oleh ribuan Programmer, penguji, dan pengguna yang kebanyakan bukan ahli IT dari seluruh dunia hingga akhirnya menjadi seperti sekarang. 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/python.png?raw=true" width="500" height="230">
+</center>
+
+Inspirasi nama Python diambil dari acara TV BBC yang berjudul “Monty Python’s Flying Circus”, karena Guido adalah penggemar berat acara tersebut. Selain itu, ia ingin memberikan nama yang pendek, unik, dan sedikit misterius untuk penemuannya. 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/timeline_python.png?raw=true" width="750" height="330">
+</center>
+
+Version yang paling banyak digunakan adalah versi dari Python **2.x** dan **3.x**, dan masing-masing versi memiliki fanbase dalam penggunannya. Namun, sejak awal Januari 2020 untuk support maintenance pada Python versi **2.x** telah berhenti. Bahasa pemrograman Python digunakan untuk berbagai tujuan antaranya Developing, Scripting, Generation and Software testing. Karena bahasanya yang elegan dan sederhana, beberapa top perusahaan teknologi seperti Dropbox, Google, Quora, Mozilla, IBM dan Cisco menggunakan Python dalam implementasinya. 
+
+
+## Peranan 
+
+Peranan Python sebagai bahasa pemrograman yang populer seperti sekarang ini sudah tidak diragukan lagi. Python dapat membantumu mengembangkan banyak hal, seperti mengembangkan backend, perangkat lunak dan kecerdasan buatan lainnya. Mari kita simak alasan-alasan apa saja yang menguatkanmu untuk belajar Python dikutip dari teknologi.id:
+
+* **Open source**, dan it is free.
+* Python **mudah digunakan** bahkan untuk seorang pemula tanpa latar belakang IT.
+* Python bahasanya **ekspresif**, karena dapat menyederhanakan code, misalkan satu baris code dapat mengerjakan banyak hal ketimbang satu baris code pada bahasa pemrograman lainnya. 
+* Python **mudah dibaca** (dalam hal debug, maintain, dan modify code) oleh manusia, tidak hanya komputer. 
+* Memiliki **banyak Library** di dalamnya.
+* Dapat **diterapkan lintas platform** seperti Windows, Mac, Linux, UNIX, dll. 
+* **Bahasa pemorograman terpopuler** dari tahun 2018 hingga saat ini berdasarakan analisis Google trend.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/python_pop.jpg?raw=true" width="600" height="350">
+</center>
+
+Keunggulan Python yang bersifat interpretatif juga banyak digunakan untuk prototyping, scripting dalam pengelolaan infrastruktur, hingga pembuatan website berskala besar.Python adalah salah satu bahasa pemrograman yang dianggap sebagai opsi paling tepat untuk seluruh proyek Data Analitik, Sains Data, Artificial Intelligence (AI), termasuk machine learning. 
+
+## Keunggulan
+
+Jika dibandingkan dengan bahasa pemrograman populer lainnya, R adalah salah satu pemrograman yang dianggap menjadi sanding terkuat dalam hal olah data. Olehkarena itu mari kita perhatikan keunggulan dari keduanya sebagai berikut:
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/R_vs_Py.png?raw=true" width=740" height="280">
+</center>
+
+
+## Instalasi
+
+Python memiliki banyak versi, dan sangat mungkin jika di dalam Local Machine kita (komputer) memiliki beberapa versi yang berbeda. Kunjungi [Anaconda.com](https://www.anaconda.com/products/distribution) dan download Installer sesuai dengan Operating System (OS) di komputer anda.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/Install_Conda.png?raw=true" width=800" height="310">
+</center>
+
+
+
+### Windows 
+
+Berikut ini adalah video tutorial untuk melakukan installasi Anconda di Windows.
+
+<iframe width="780" height="420" src="https://www.youtube.com/embed/ZKNy-sPBKQc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Macintosh
+ 
+Berikut ini adalah video tutorial untuk melakukan installasi Anconda di Macintosh (Mac OS).
+
+<iframe width="780" height="420" src="https://www.youtube.com/embed/mriOWu00jy4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Linux
+
+Berikut ini adalah video tutorial untuk melakukan installasi Anconda di Linux.
+
+<iframe width="780" height="420"  src="https://www.youtube.com/embed/3b3g_t3zwro" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+## Teks Editor
+
+Sebenarnya ada banyak teks editor yang dapat digunakan untuk menulis Python script, yaitu: 
+
+* [Python Shell](https://www.python.org/shell/), 
+* [Spyder](https://www.spyder-ide.org/), 
+* [Sublime Text](https://www.sublimetext.com/), 
+* [Visual Studio](https://visualstudio.microsoft.com/vs/features/python/), 
+* [Jupyterlab (Notebook)](https://jupyter.org/), 
+* [Google Colab](https://colab.research.google.com/?hl=id), dll.
+
+Salah satu yang paling populer yaitu menggunakan Jupyterlab, tool ini sudah pasti akan terinstall otomatis apabila dilakukan proses pemasangan Python menggunakan Anaconda. Jika pemasangan Python tidak melalui Anaconda, untuk menggunakan Jupyterlab maka terlebih dahulu melakukan pemasangan dengan 'pip' atau 'conda' (Script : `pip install jupyterlab`). Salah satu keunggulan Jupyterlab adalah kita bisa melihat integrasi antara input dan output dari script yang kita tulis, di dalam satu tampilan dokumen yang interaktif. Berikut ini adalah tampilan Jupeterlab, biasanya link http://localhost:8888/lab/:
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/jupyterlab.png?raw=true" width=800" height="400">
+</center>
+
+Selain Jupyterlab, cara alternatif yang paling banyak digunakan untuk menulis koding Python adalah Google Colab: 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/googlecolab.png?raw=true" width=800" height="400">
+</center>
+
+
+**Catatan (Opsional):** Lakukan update sebelum menggunakan Python, istall library paling umum digunakan yaitu; (panda, numpy, matplotlib, seaborn) dengan menggunakan pip dan conda (Contoh: `pip install panda` atau `conda install panda`)
+
+<!--chapter:end:00-Pengenalan_Python.Rmd-->
+
+# Konsep Dasar Python
+
+Untuk memulai mempelajari segala sesuatu perlu dilakukan dari hal yang sangat fundamental, begitu pula jika anda ingin belajar  Python. Konsep dasar dan cara kerja Python, dapat dianalogikan sebagai proses memasak Roti serata bagaimana cara menyajiannya. Perhatikan gambar 1 berikut: 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/analogi_py.png?raw=true" width=800" height="300">
+</center>
+
+Sejatinya koding yang dituliskan dalam bahasa pemrograman Python adalah suatu instruksi dari pengguna **(user)** kepada komputer untuk melakukan proses mengolah antara bahan, persiapan sampai dengan memasak dibutuhkan “kata” khusus, “simbol”, sehingga dikombinasikan sebagai sebuah “kalimat”.
+
+
+## Atribut & Peralatan
+
+Setiap bahasa pemrograman memiliki atribut dan aturan penulisan yang berbeda-beda. Python memiliki beberapa aturan penulisan objek, variabel, statement, operator, hingga penulisan komentar. Jika terdapat penulisan yang tidak sesuai dengan aturan, maka program tidak akan berjalan atau error. Berikut ini adalah beberapa atribut dan struktur penulisan yang perlu diperhatikan pengguna Python.
+
+### Objek 
+
+Apapun yang diimplementasikan di Python disebut sebagai sebuah objek. Object ini tentu akan memiliki beberapa tipe, misalnya nilai Integer atau Boolean. Berdasarkan tipe suatu objek tersebut, dapat menentukan proses apa yang bisa dilakukan dengan data yang dimiliki. Contoh; suatu nilai Integer dianggap sebagai objek yang dianalogikan dengan sebuah kotak transparan yang memiliki nilai 10.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/tipe_objek.png?raw=true" width=500" height="300">
+</center>
+
+
+**Catatan:** Tipe object, menentukan apakah value yang ada di dalam kotak ini dapat diubah (mutable) atau konstan (immutable).
+
+
+### Variabel 
+
+Variabel merupakan tempat penyimpanan sementara yang dapat digunakan untuk menyimpan data atau informasi. Variabel bersifat mutable, artinya nilai yang ada di dalam variabel dapat diubah, Nilai yang ada di dalam variabel pun dapat berupa bilangan maupun kata. Jadi, apabila suatu saat data tersebut ingin ditampilkan, kita hanya perlu memanggil variabel tersebut untuk menampilkan data yang tersimpan. Dengan kata lain variabel dapat dianggap seperti sebuah sticky note yang menempel di sebuah objek. 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/variabel.png?raw=true" width=400" height="200">
+</center>
+
+### Statement
+
+Statement adalah instruksi atau kalimat perintah yang diberikan dalam beberapa baris untuk dieksekusi oleh komputer. Pada bahasa Python, jika kita ingin menuliskan beberapa statement dalam satu baris maka kita harus memisahkannya dengan titik-koma. Seperti contoh berikut:
+
+```{python, eval=F}
+a = 10 ; b = 12; c = a+b; 
+print(a,b,c)
+```
+
+
+### Komentar 
+
+Menambahkan/Memberikan komentar dalam skrip/koding Python adalah untuk memudahkan anda memahami arti/makna penggunaan suatu perintah/program. Komentar yang ditulis dalam sebuah program tersebut hanya bersifat penjelasan tentang apa yang dilakukannya atau apa yang seharusnya dilakukan oleh sebuah skrip/koding. Perlu dicatat bahwa komentar yang bersifat informasi tidak ada hubungannya dengan logika pemrogaram yang sedang anda gunakan. Mereka benar-benar diabaikan oleh kompiler dan dengan demikian tidak pernah tercermin pada input. Biasanya komentar dituliskan pada satu baris yang tersedia di Python, dengan menggunakan `#` di awal maupun di akhir pernyataan.
+
+
+```{python eval=FALSE, include=T}
+# input suatu nilai ke variabel (contoh: komentar di awal script)
+a1  = 10
+a_1 = 12   # input suatu nilai ke variabel (contoh: komentar di akhir script)
+1a  = 13   # contoh penulisan variabel yang salah
+```
+
+**Keterangan:** Penulisan variabel dalam Python juga memiliki aturan tertentu, sebagai berikut.
+
+* Karakter pertama harus berupa huruf atau garis bawah/underscore (_), artinya **tidak boleh dimulai dengan angka**.
+* Karakter selanjutnya dapat berupa huruf, garis bawah/underscore (_) atau angka.
+* Karakter pada nama variabel bersifat sensitif (case-sensitif). Artinya huruf kecil dan huruf besar dibedakan. Sebagai contoh, variabel nama dan Nama dianggap menjadi variabel yang berbeda. 
+
+
+
+## Persiapan
+
+Dalam persiapan data, kita perlu mengetahui apa tipe data karena tiap tipe data memiliki perlakuan yang berbeda. Khususnya, jika Python tidak mendeteksi tipe data kita dengan benar, misalkan nomor telepon dalam bentuk `Integer` perlu dirubah menjadi `Strings`. 
+
+### Tipe Data
+
+Berikut adalah tipe data yang umum di Python:
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/tipedata_py.jpeg?raw=true" width=630" height="430">
+</center>
+
+**Keterangan:**
+
+* `List[]` :- Kumpulan elemen dapat diubah (mutable).
+* ` Tuple()`:- Kumpulan elemen tidak dapat diubah (immutable).
+* `Set{}` :- Koleksi elemen unik (tidak memungkinkan pengulangan elemen)
+
+Selain pemahaman tipe data, memahami penggunaan operator Python adalah hal yang sangat penting untuk mempersiapkan pengolahan data. 
+
+
+### Operator 
+
+Operator merupakan simbol-simbol yang digunakan untuk melakukan operasi tertentu. Ada 4 jenis operator dalam pemrograman yang wajib diketahui:
+
+#### Operator Penugasan  {-}
+
+Seperti namanya, operator ini digunakan untuk memberikan tugas pada variabel. Selain menyimpan atau pengisian nilai, ada juga menjumlahkan, mengurangi, perkalian, pembagian, dsb. Selengkapnya bisa dilihat contoh berikut.
+
+```{python, eval=F}
+a = 9                   # Input suatu nilai ke variabel
+a += 8                  # tambahkan dengan 8 
+a -= 7                  # kurangi 7
+a *= 6                  # kali 6
+a /= 5                  # bagi dengan 5
+a **=4                  # pangkat 4
+a
+```
+#### Operator Aritmatika {-}
+
+Opeartor aritmatika termasuk dalam operator yang paling sering digunakan dalam pemrograman. Berikut adalah contoh penggunaanya:
+
+```{python, eval=F}
+a = 3                   # Input suatu nilai ke variabel
+b = 6                   # Input suatu nilai ke variabel
+a + b                   # Penjumlahan
+a - b                   # Pengurangan
+a * b                   # Perkalian
+a / b                   # Pembagian
+a // b                  # Pembagian bulat
+a % b                   # Sisa Bagi (modulo)
+a ** b                  # Pangkat
+```
+
+#### Operator Pembanding {-}
+
+Operator ini digunakan untuk membandingkan dua buah nilai. Operator ini juga dikenal dengan operator relasi dan sering digunakan untuk membuat sebuah logika atau kondisi. Perhatikan contoh berikut:
+
+```{python, eval=F}
+a = 3                   # Input suatu nilai ke variabel
+b = 6                   # Input suatu nilai ke variabel
+a == b                  # apakah a sama dengan b?
+a < b                   # apakah a lebih kecil dari b?
+a > b                   # apakah a lebih besar dari b?
+a <= b                  # apakah a lebih kecil sama dengan b?
+a >= b                  # apakah a lebih besar sama dengan b? b?
+a != b                  # apakah a bukan b?
+```
+
+
+#### Opeartor Logika  {-}
+
+```{python, eval=F}
+a=True                  # Input suatu nilai ke variabel
+b=False                 # Input suatu nilai ke variabel
+not a                   # negasi 
+a & b                   # Logika AND
+a and b                 # Logika AND
+a | b                   # Logika OR
+a or b                  # Logika OR
+```
+
+## Proses (Algoritma)
+
+Pada dasarnya, algoritma hanyalah serangkaian instruksi yang dirancang dengan menggunakan alur logis, disusun langkah demi langkah, yang berguna untuk menyelesaikan suatu masalah maupun dalam menyelesaikan tugas tertentu. Dalam komputasi, algoritma menyediakan komputer dengan panduan berturut-turut untuk menyelesaikan tindakan. Mereka terdiri dari daftar instruksi yang tepat yang menguraikan dengan tepat bagaimana menyelesaikan tugas. 
+
+Untuk mempermudah pemahaman mengenai algoritma ini, maka berikut ini diberikan tiga contoh penerepan algoritma dalam kehidupan sehari-hari dan dilengkapi dengan flowchartnya. Dalam hal ini, misalkan anda ingin memasak telur, ada beberapa variasi dan langkah yang bisa dilakukan:
+
+* Siapkan telur yang akan dimasak
+* Tentukan telurnya akan dimasak seperti apa
+* Jika ingin memasak orak-arik, maka:
+  * Pecahkan telurnya ke dalam wadah
+  * Kocok telur dan tambahkan bumbu sesuai selera
+  * Panaskan penggorengan
+  * Masukkan kocokan telur ke penggorengan yang sudah panas
+  * Aduk telur sampai menjadi orak-arik
+* Jika ingin memasak ceplok, maka:
+  * Panaskan penggorengan yang sudah diisi minyak
+  * Pecahkan telur di penggorengan dan tunggu sampai matang
+* Jika ingin memasak telur rebus, maka:
+  * Didihkan air dalam panci
+  * Masukkan telur utuh ke dalamnya dan tunggu beberapa menit sampai isinya matang sesuai selera
+* Siap untuk dimakan
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/masak-telurs.png?raw=true" width="550" height="700">
+</center>
+
+
+**Catatan:** Jika anda ingin belajar lebih lanjut mengenai prosedur membuat flowchart silahkan klik [disini](https://ndoware.com/diagram-alir-flowchart.html). 
+
+
+### Percabangan If
+
+Percabangan `if` digunakan saat terdapat satu pilihan keputusan. Contoh, Jika peserta pelatihan tidak lulus dalam ujian, maka kita harus ikut remidi. Sedangkan yang lulus dapat sertifikat.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/if.png?raw=true" width="300" height="300">
+</center>
+
+Dalam hal ini digunakan operator relasi sama dengan (==) untuk membandingkan isi variabel lulus. Sedangkan tanda titik-dua (:) adalah tanda untuk memulai blok kode `if`. 
+
+```{python, eval=F}
+# Program untuk Check Kelulusan
+
+lulus = input("Apakah anda lulus? [ya/tidak]: ")
+
+if lulus == "tidak":
+   print("Anda harus ikut ujian remidi")
+```
+**Catatan**: Penulisan blok `if`, harus diberikan indentasi tab atau spasi 2x.
+
+Biar pemahamannya semakin mantap, silahkan coba contoh kasus berikut ini.
+
+```{python, eval=F}
+# program untuk mengecek bonus dan diskon
+
+biaya_pengiriman = input("Total biaya pengiriman: Rp ")
+
+# jumlah yang harus dibayar adalah berapa total pengirimannya
+# tapi kalau dapat diskon akan berkurang biaya pengiriamannya
+
+bayar = biaya_pengiriman
+
+# jika dia biaya pengiriman di atas 100rb maka berikan bonus dan diskon
+
+if int(biaya_pengiriman) > 100000:
+    print("dan diskon 5%")
+    print("Kamu mendapatkan bonus minuman dingin")
+
+    # hitung diskonnya
+    diskon = int(biaya_pengiriman) * 5/100   # 5%
+    bayar = int(biaya_pengiriman) - diskon
+
+    # cetak struk
+    print("Total yang harus dibayar: Rp %s" % bayar)
+    print("Terima kasih sudah mengirim paket dengan JNE")
+    print("Selamat Datang Kembali...")
+```
+
+### Percabangan If/Else
+
+Percabangan If/Else digunakan saat terdapat dua pilihan keputusan.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/if-else.png?raw=true" width="500" height="350">
+</center>
+
+Jika contoh diatas diterapkan dengan program Python maka diperoleh;
+
+```{python, eval=F}
+nilai = input("Berapa Nilai Anda?: ")
+
+if int(nilai) >= 75:
+    print("Anda berhak mendapatkan Sertifikat")
+else:
+    print("Diwajibkan untuk ikut remidi")
+```
+
+
+### Percabangan If/Elif/Else
+
+Percabangan If/Elif/Else digunakan apabila terdapat lebih dari dua pilihan keputusan.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/if-elif-else.png?raw=true" width="550" height="400">
+</center>
+
+Berikut ini adalah cara penyusunan programmnya:
+
+```
+if begini:
+    maka ini
+elif begitu:
+    maka itu
+elif begono:
+    maka anu
+    .
+    .
+    .
+elif dst:
+    maka dst    
+else:
+    pokoknya selain yg diatas!
+```
+
+Misalkan kita akan membuat program untuk menentukan grade nilai dengan flow chart diatas, Maka kode programnya adalah sebagai berikut:
+
+```{python, eval=F}
+# menentukan grade nilai kelulusan
+
+nilai = int(input("Inputkan nilaimu: "))
+
+if nilai >= 90:
+   grade = "A"
+elif nilai >= 80:
+   grade = "B+"
+elif nilai >= 70:
+   grade = "B"
+elif nilai >= 60:
+   grade = "C+"
+elif nilai >= 50:
+   grade = "C"
+elif nilai >= 40:
+   grade = "D"
+else:
+   grade = "E"
+
+print("Grade: %s" % grade)
+```
+
+### Perulangan for
+
+Perualangan dalam bahasa pemrograman berfungsi menyuruh komputer melakukan sesuatu secara berulang-ulang. Terdapat dua jenis perualangan dalam bahasa pemrograman python, yaitu perulangan dengan for dan while. Perbedaannya adalah perulangan for biasanya digunakan untuk mengulangi kode yang sudah diketahui banyak perulangannya. 
+
+Contoh program:
+
+```{python eval=F}
+ulang = 10
+
+for i in range(ulang):
+    print(f"Perulangan ke-{i}")
+```
+
+Variabel `i` berfungsi untuk menampung indeks, dan fungsi `range()` berfungsi untuk membuat list dengan range dari 0-10. Fungsi str() berfungsi merubah tipe data integer ke string
+
+
+Contoh lain menggunakan senarai (list):
+
+```{python eval=F}
+item = ['SS','YES','OK','PESONA']
+
+for Pruduk_JNE in item:
+    print(Pruduk_JNE)
+```
+
+
+### Perulangan while
+
+Perulangan while untuk perulangan yang memiliki syarat dan tidak tentu berapa banyak perulangannya.
+
+```{python eval=F}
+jawab = 'ya'
+hitung = 0
+
+while(jawab == 'ya'):
+    hitung += 1
+    jawab = input("Ulang lagi tidak? ")
+
+print(f"Total perulagan: {hitung}")
+```
+
+Atau bisa juga dengan bentuk yang seperti ini, dengan menggunakan kata kuci `break`
+
+
+```{python eval=F}
+jawab = 'ya'
+hitung = 0
+
+while(jawab == 'ya'):
+    hitung += 1
+    jawab = input("Ulang lagi tidak? ")
+
+print(f"Total perulagan: {hitung}")
+```
+
+
+## Penyajian
+
+Dilanjukan ke Pertemuan berikutnya....
+
+
+<!--chapter:end:01_Konsep_Dasar_Python.Rmd-->
+
+# Persiapan Data
+
+Secara umum, tujuan analisis data adalah untuk menjelaskan suatu data agar lebih mudah dipahami, selanjutnya dibuat sebuah kesimpulan. Suatu kesimpulan tersebut, didapatkan dari pengujian hipotesis (dugaan) bersasarkan data sampel maupun populasi, yang kemudian biasa dilakukan pemodelan hingga prediksi. Proses analisis data ini, secara singkat dapat diperlihatkan dengan gambar berikut:
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/Infografic-Data-Analytics-How-To-Process.gif?raw=true" width=800" height="310">
+</center>
+
+## Tahapan Persiapan Data
+
+Adapun hal pertama yang dilakukan sebelum analisis data, ada berbagai tahapan yang harus dilalui yaitu persiapan data **(data preparation)**. Sederhananya, persiapan data adalah proses mengambil data mentah dan menyiapkannya untuk diserap dalam platform analitik (dalam hal ini digunakan Python). Tahapan persiapan data ini sering kali membutuhkan waktu bahkan hinga **60%-80%** dari seluruh siklus analisis, kecepatan dan efisiensi proses persiapan data perlu dijadikan prioritas. Adapun beberapa tahapan yang harus Anda lalui dalam melakukan data preparation, di antaranya adalah:
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/persiapan_data.png?raw=true" width=800" height="370">
+</center>
+
+## Mengapa Python vs Excel?
+
+Sebelum kita mulai, Anda mungkin bertanya-tanya mengapa Python layak untuk dipertimbangkan. Mengapa Anda tidak bisa terus menggunakan Excel? Meskipun Excel bagus, ada beberapa area yang membuat bahasa pemrograman seperti Python lebih baik untuk jenis analisis data tertentu. Berikut adalah beberapa alasan bagi Pengguna Excel harus Mempertimbangkan belajar pemrograman Python: 
+
+<br>
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/py_vs_xl.png?raw=true" width=800" height="370">
+</center>
+<br>
+
+Tidak dapat disangkal bahwa Excel adalah alat yang paling umum digunakan dalam analisis data. Kesederhanaannya dikombinasikan dengan betapa kuatnya ketika dikuasai menjadikannya pilihan utama bagi banyak orang. Namun, jika kita merujuk pada perbandingan Python versus Excel di atas, terlihat jelas betapa terbatasnya Excel sebenarnya. Jadi pertanyaan sebenarnya adalah **mengapa lebih banyak orang menggunakan Excel daripada Panda?** Jawaban atas pertanyaan itu sangat sederhana. Kebanyakan orang tidak akrab dengan Python dan menganggap gagasan mempelajari bahasa pemrograman apa pun menakutkan. Selain itu, manusia adalah makhluk kebiasaan. Begitu kita masuk ke dalam rutinitas, kita cenderung untuk tinggal di dalamnya. Bagi sebagian besar analis data, rutinitas itu menggunakan Excel. Beralih ke Python tampaknya sangat bermasalah dan memakan waktu sehingga kebanyakan orang lebih suka tinggal di zona nyaman mereka daripada meluangkan waktu untuk mempelajari sesuatu yang benar-benar baru. 
+
+
+## Contoh Persiapan Data 1
+
+Untuk memperjelas pembahasan mengenai penggunaan Python dibanding Excel diatas, selanjutnya akan diperlihatkan dengan contoh sederhana. Dalam hal ini, penulis tidak sedang menganjurkan untuk meninggalkan Excel dalam proses olah data. Tetapi sebagai pengguna Excel, dapat juga memanfaatkan kekuatan Python untuk menghemat waktu Anda. Perlu diingat bahwa kedua alat ini dapat bekerja dengan baik bersama-sama, dan Anda mungkin menemukan bahwa beberapa tugas sebaiknya dibiarkan di Excel, sementara yang lain dapat diselesaikan dengan keunggulan, fleksibilitas, dan transparansi yang ditawarkan oleh Python.
+
+
+### Impor Data 
+
+Andaikan [DP2.xlsx](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fsainzdata%2FPy_JNE%2Fmain%2Fdata%2FDP2.xlsx&wdOrigin=BROWSELINK) dan [Manager.csv](https://raw.githubusercontent.com/sainzdata/Py_JNE/main/data/Managers.csv) adalah data yang akan dianalisis, proses impor dan membacanya di Python dan Excel sangatlah berbeda. 
+
+#### Excel {-}
+
+Dengan menggunakan Excel kita hanya perlu klik dua kali file (data) dalam format excel atau menggunakan toolbar open file.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/excel1.png?raw=true" width=800" height="300">
+</center>
+
+
+#### Python {-}
+
+Untuk melakukan impor data dengan Python, gunakan sintak berikut: 
+
+```{python, eval=F}
+import pandas as pd                                         # library untuk impor data
+sales = pd.read_excel('data/DP2.xlsx', sheet_name='Sales')  # simpan sebagai variabel sales
+print(sales)                                                # print data
+type(sales)                                                 # memastikan tipe data frame
+```
+
+**Catatan:** Jangan lupa install library yang dibutuhkan dengan cara `pip install pandas` dan `pip install openpyxl`.
+
+Adapun beberapa perbedaan antara bagaimana Python `(pandas)` merepresentasikan data vs apa yang kita lihat di Excel:
+
+* Di Python, nomor baris dimulai dari 0 versus 1 di Excel.
+* Nama kolom dalam Python diambil dari data, versus Excel di mana kolom diberi label menggunakan huruf.
+* Jika ada nilai yang hilang dalam data asli, Python memiliki placeholder `NaN` yang menunjukkan bahwa nilai tersebut tidak ada atau nol.
+* Data penjualan memiliki titik desimal yang ditambahkan ke setiap nilai karena Python menyimpan nilai numerik yang menyertakan nilai null `(NaN)` sebagai tipe numerik yang dikenal sebagai float.
+
+### Ekspor (Simpan Data)
+
+#### Excel {-}
+
+Untuk simpan data di Excel, kita bisa menggunakan toolbar File > Save As > dan simpan pada folder yang diinginkan.
+
+#### Python {-}
+
+Jika kita ingin menyimpan data yang kita olah dengan Python, berikut adalah sintaknya:
+
+```{python eval=F}
+sales.to_excel('data/sales.xlsx', sheet_name='bebas')
+```
+
+
+### Menyortir Data
+
+Selanjutnya, cara menyortir atau mengurutkan data kita di Excel dan Python.
+
+#### Excel {-}
+
+Untuk mengurutkan data berdasarkan kolom "Start Date", adalah dengan cara:
+
+1. Blok kolom "Start Date"
+2. Klik toolbar `Home` 
+3. Pilih Short&Filter yang dinginkan (Min ke Max atau sebaliknya)
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/sort.png?raw=true" width=800" height="400">
+</center>
+
+#### Python {-}
+
+Dengan library pandas, menyortir data dapat diterapkan dengan menggunakan fungsi `DataFrame.sort_values()`. diperlihatkan sebagai berikut:
+
+```{python eval=F}
+sales = sales.sort_values("Start Date",ascending=True)      # mengurutkan data (a-z) 
+print(sales)                                                # print data               
+```
+
+### Penjumlahan Nilai di Kolom
+
+Tiga kolom terakhir dari data tersebut berisi nilai penjualan untuk tiga bulan pertama tahun ini, yang dikenal sebagai kuartal pertama. Andaikan kita ingin menjumlahkan nilai-nilai tersebut di Excel dan Python.
+
+#### Excel {-}
+
+Mari kita mulai dengan melihat bagaimana melakukan ini di Excel:
+
+1. Masukkan nama kolom baru `Sales Q1` di sel `H1`.
+2. Di sel `H2`, gunakan rumus `=SUM()` dan tentukan rentang sel menggunakan koordinatnya.
+3. Seret rumus ke bawah ke semua baris.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/jumlahan_kolom.png?raw=true" width=800" height="400">
+</center>
+
+#### Python {-}
+
+```{python eval=F}
+q1_columns = sales[["Sales January", "Sales February", "Sales March"]]
+sales["Sales Q1"] = q1_columns.sum(axis=1)
+sales
+```
+
+
+### Join Data 
+
+Menggabung data adalah hal lumrah dalam proses pengolahan data, sehingga kemampuan ini sangat penting untuk dipertimbangkan. Mari kita lihat cara menggabungkan data pada suatu kolom baru "Manager" di Excel dan Python.
+
+#### Excel {-}
+
+* Mulai dengan menambahkan nama kolom ke sel I1.
+* gunakan rumus VLOOKUP() di sel I2, dengan menetapkan:
+
+  * untuk mencari nilai dari sel B2 (Departemen)
+  * dalam pemilihan data manajer, yang kami tentukan menggunakan koordinat
+  * dan tentukan kita ingin memilih nilai dari kolom kedua dari data tersebut.
+* Klik dan seret rumus ke bawah ke semua sel.
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/join_data.png?raw=true" width=800" height="400">
+</center>
+
+#### Python {-}
+
+Untuk bekerja dengan data ini di Python, pertama-tama kita harus mengimpornya data lain yang ingin dihubungkan.
+
+```{python eval=F}
+managers = pd.read_csv('data/Managers.csv',sep=";")
+print(managers)
+```
+
+Untuk menggabungkan data `Managers` ke `Sales` menggunakan Python, kita akan menggunakan fungsi pandas.merge(). Dengan memberikan argumen berikut, dalam urutan:
+
+* `Sales`: nama kerangka data pertama, atau kiri, yang ingin kami gabungkan
+* `Managers`: nama kerangka data kedua, atau kanan, yang ingin kami gabungkan
+* `how='left'`: metode yang ingin kita gunakan untuk menggabungkan data. Gabung kir ini adalah proses menyimpan semua baris dari kerangka data kiri (pertama).
+* `on='Department'`: Nama kolom di kedua kerangka data tempat kita akan bergabung.
+
+```{python eval=F}
+sales = pd.merge(sales, managers, how='left', on='Department')
+print(sales)
+```
+
+**Catatan:** Jika ini tampaknya agak membingungkan pada awalnya, tidak apa-apa. Model untuk menggabungkan data dengan Python berbeda dengan yang digunakan di Excel, tetapi hal ini sangat powerfull. Perhatikan bahwa dalam Python kita dapat menentukan dengan tepat bagaimana kita menggabungkan data kita menggunakan sintaks dan nama kolom yang jelas.
+
+
+### Kondisional Nilai
+
+Jika kita melihat kolom `End Date`, kita dapat melihat ada nilai yang hilang masih bekerja tetapi sisanya telah pergi. Tugas kita selanjutnya adalah membuat kolom yang memberi tahu jika setiap tenaga `Sales` pada kolom `End Date`yang hilang (kosong) tersebut adalah karyawan yang masih aktif saat ini. 
+
+#### Excel {-}
+
+Dimulai dengan Excel, untuk menambahkan kolom ini kita dapat:
+
+* Menambahkan nama kolom baru ke sel `J1`.
+* Gunakan rumus `IF()` untuk memeriksa apakah sel `D1` (End Date) kosong, dan jika demikian isi `J2` dengan `TRUE`, jika tidak `FALSE`.
+* Seret rumus ke sel di bawah ini. 
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/if_excel.png?raw=true" width=800" height="400">
+</center>
+
+#### Python {-}
+
+Di Python, kita dapat menggunakan fungsi `pandas.isnull()` untuk memeriksa nilai nol di kolom `End Date`, dan menetapkan hasilnya ke kolom baru:
+
+```{python eval=F}
+sales["Current Employee"] = pd.isnull(sales['End Date'])
+sales
+```
+
+### Tabel pivot
+
+Salah satu fitur Excel yang paling kuat adalah tabel pivot, yang memfasilitasi analisis data menggunakan agregasi. Kita akan melihat dua aplikasi tabel pivot yang berbeda di Excel dan Python.
+
+#### Excel {-}
+
+Berikut ini diperlihatkan tabel pivot di Excel yang menghitung jumlah karyawan di setiap departemen:
+
+* Blok data yang ingin dibutkan dalam tabel pivot
+* Klik toolbar `Insert` dan pilih `PivotTable`
+* Klik OK
+* Pilih nama variabel baris, kolom dan nilainya (sesuai kebutuhan)
+
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/pivot.png?raw=true" width=800" height="400">
+</center>
+
+#### Python {-}
+
+Mari kita gunakan metode Python untuk menghitung jumlah karyawan di setiap departemen:
+
+```{python}
+sales['Department'].value_counts()
+```
+
+
+Contoh tabel pivot kedua juga digabungkan berdasarkan departemen, tetapi kali ini kita menghitung rata-rata Sales Q1: gunakan metode DataFrame.pivot_table(). Kita perlu menentukan beberapa argumen berikut:
+
+* `index`: kolom yang akan diagregasi.
+* `values`: kolom yang ingin kita gunakan nilainya.
+* `aggfunc`: fungsi agregasi yang ingin kita gunakan, dalam hal ini rata-rata `mean`.
+
+```{python eval=F}
+sales.pivot_table(index='Department', 
+                  values='Sales Q1', 
+                  aggfunc='mean')
+```
+
+**Catatan:** Silahkan mencoba fungsi agregasi lain seperti: sum, count, min, dan max.
+
+Cara lainnya, 
+
+```{python,eval=F}
+pd.pivot_table(data=sales,
+               index='Department', 
+               values='Sales Q1', 
+               aggfunc='mean')
+```
+
+
+## Contoh Persiapan Data 2
+
+* [Klik Disini : Github](https://github.com/sainzdata/Py_JNE/tree/main/Notebook)
+* [Klik Disini: Google Colab](https://colab.research.google.com/)
+
+## Persiapan Data Lanjutan
+
+Pada tahapan ini, kita akan mencoba menggunakan data yang lebih komplek yaitu:
+
+* Omset_202001_202012 (omset Jan sd Des 2020) [Klik disini untuk Review dan Download](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fsainzdata%2FPy_JNE%2Fmain%2Fdata%2FOmset_202001_202012.xlsx&wdOrigin=BROWSELINK) 
+* Omset_202101_202112 (omset Jan sd Des 2021) [Klik disini untuk Review dan Download](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fsainzdata%2FPy_JNE%2Fmain%2Fdata%2FOmset_202101_202112.xlsx&wdOrigin=BROWSELINK) 
+* Omset_202201_202207 (omset Jan sd Jul 2022) [Klik disini untuk Review dan Download](https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2Fraw.githubusercontent.com%2Fsainzdata%2FPy_JNE%2Fmain%2Fdata%2FOmset_202201_202207.xlsx&wdOrigin=BROWSELINK) 
+
+dilakukan proses persiapan data dengan Python sebagai berikut:
+
+### Import Data
+
+Install library yang dibutuhkan di Melalui CMD di Anacond `pip install xlrd`.
+
+```{python eval=F}
+data_2020 = pd.concat(pd.read_excel('data/Omset_202001_202012.xlsx', 
+                                    sheet_name=None), 
+                                    ignore_index=True)
+data_2021 = pd.concat(pd.read_excel('data/Omset_202101_202112.xlsx', 
+                                    sheet_name=None), 
+                                    ignore_index=True)
+data_2022 = pd.concat(pd.read_excel('data/Omset_202201_202207.xlsx', 
+                                    sheet_name=None), 
+                                    ignore_index=True)
+# gabungkan semua data
+all_data = pd.concat([data_2020,data_2021,data_2022],ignore_index=True)
+print(all_data)
+```
+
+**Catatan:** Jika Anda melakukan penggabungan dengan Excel, hal yang paling mungkin anda lakukan seperti pada [link ini](https://rpubs.com/yosia/appendinexcel) ditulis oleh Tim **(Yosia)**.
+
+### Format Tanggal
+
+Hal yang sangat krusial dalam hal analisis adalah data yang berhubungan dengan tanggal. Berikut ini adalah sintak yang dapat digunakan di Python:
+
+```{python eval=F}
+all_data['PERIODE'] = pd.to_datetime(all_data['PERIODE'], format='%Y-%m-%d')
+all_data['PERIODE'] 
+```
+
+
+### Rename Variabel
+
+Saat menganalisis data, terkadang kita perlu melakukan penggantian nama kolom untuk memudahkan pemahaman atribut tersebut.
+
+```{python}
+list(all_data.columns)
+sorted(all_data)
+```
+
+
+
+```{python, eval=F}
+data.columns = ['Periode', 'Regional', 'Branch_Id', 
+                'BRANCH_NAME', 'SERVICES_CODE', 'ZONE_DESTINATION',                 'JUMLAH_AWB', 'JUMLAH_WEIGHT', 'JUMLAH_CASH',                       'JUMLAH_CREDIT', 'JUMLAH_COD', 'JUMLAH_EPAY',                       'TOTAL_OMZET']
+```
+
+
+### Ekspor Data
+
+Jika data yang sudah dipersiapkan dengan baik dan dianggap sudah layak untuk dilanjukan ke tahap analisis dasar seperti menggukan Visualisasi maka data tersebut dapat disimpan.
+
+```{python, eval=F}
+all_data.to_excel('data/all_data.xlsx', sheet_name='omset',index=False)
+```
+
+
+
+### Ekstrak Kondisional Data
+
+```{python eval=F}
+eks_data = all_data[(all_data['PERIODE'] > "2020-09-01") & 
+                    (all_data['PERIODE'] < "2020-11-01")]
+                    
+print(eks_data)
+```
+
+
+
+### 8 Baris Pertama (Tugas)
+ 
+Perlihatkan 8 baris pertama dari data yang sedang anda gunakan! 
+
+### Check Dimensi Data (Tugas)
+
+Check dimensi data tersebut, berapa baris dan kolomnya?
+
+
+### Check Atribut Kolom (Tugas)
+
+Bagaimana caranya untuk mengetahui nama variabel (atribut kolom dataset)?
+
+### Info Dasar Data (Tugas)
+
+Cara paling powerful untuk mengetahui detail informasi dasar pada data, dapat dilakukan dengan? 
+
+
+### Pembulatan Nilai (Tugas)
+
+Lakukan pembulatan untuk setiap nilai desimal yang anda miliki didalam dataset tersebut diatas! 
+
+
+### Pilah Data Kolom (Tugas)
+
+Pilihlah data berdasarkan beberapa kolom dengan menggunakan `string` dan `number`!
+
+
+###  Kolom Baru (Tugas)
+
+Butalah kolom baru dengan nilai penjulahan atau pengurangan atau perkalian dari kolom lainnya. 
+
+### Sortir Data
+
+Coba perlihatkan bagaiman jika anda diminta untuk melakukan proses sortir data berdarsar atrribut kolom yang anda inginkan!
+
+### Tabel Pivot 
+
+Perlihatkan contoh tabel pivot dengan Python!
+
+<!--chapter:end:02-Persiapan_Data.Rmd-->
+
+# Visualisasi Data
+
+Visualisasi data adalah proses mempresentasikan data terstruktur maupun tidak terstruktur melalui grafik untuk mengkomunikasikan informasi secara lebih efisien dan mudah dimengerti. Ada banyak library visualisasi data di Python, seperti; [pandas](https://pandas.pydata.org/pandas-docs/stable/user_guide/visualization.html#visualization-barplot), [matplotlib](https://matplotlib.org/stable/gallery/index.html), dan [seaborn](https://seaborn.pydata.org/examples/index.html). Dalam pelatihan ini, menggunakan library visualisasi terbaik dan interaktif yang juga dapat diterapkan diberbagai bahasa pemrograman termasuk Python yaitu: [Plotly](https://plotly.com/graphing-libraries/). Pada bagian ini, diasumsikan anda sudah melakukan persiapan data dan impor data sebelum divisualisasikan. Langkah selanjutnya, adalah mengetahui informasi dasar mengenai dataset:
+
+## Import Data
+
+```{python}
+import pandas as pd                          # library yang dibutuhakan
+data = pd.read_excel('data/all_data.xlsx')   # import data 
+data.info()                                  # informasi dasar mengenai dataset
+```
+
+Berikut ini adalah deskripsi dataset yang sedang digunakan:
+    
+* PERIODE = Transaksi Bulanan
+* REGION = Regional
+* BRANCH_ID = Nomor ID Cabang
+* BRANCH_NAME = Nama Cabang
+* SERVICES_CODE = Code Produk       
+* ZONE_DESTINATION = Tujuan Pengiriman 
+* JUMLAH_AWB = Jumlah Resi Pengiriman        
+* JUMLAH_WEIGHT = Berat Barang yang dikirimkan
+* JUMLAH_CASH = Pembayaran Tunai     
+* JUMLAH_CREDIT = Pembayaran Kredit
+* JUMLAH_COD = Pembayaran di tempat
+* JUMLAH_EPAY = Pembayaran Online
+* TOTAL_OMZET = Total Omset
+
+## Verifikasi Kelengkapan Data
+
+Dataset terkadang memuat data yang hilang, bisa saja karena tidak dikumpulkan atau tidak pernah ada. Sehingga, untuk melakukan analisa perlu dilakukan pemeriksaan kelengkapan data terlebih dahulu. Berikut ini diperlihatkan cara untuk mengekstrak baris yang berisi setidaknya satu nilai yang hilang:
+
+```{python}
+data[data.isnull().any(axis=1)]   # bisa gunakan `isnull()` atau `isna()`
+```
+
+```{python}
+data.isna().sum()                 # menghitung data yang hilang disetiap kolom
+```
+
+## Perbaharui Data
+
+Ada banyak langkah yang dapat dilakukan untuk mengisi data yang hilang denga Python, berikut ini adalah cara yang paling sering digunakan:
+
+```{python}
+pd1=data.fillna({"ZONE_DESTINATION":'A'})     # ganti data hilang pada spesifik kolom
+pd2=data.fillna(method="ffill")               # ganti data hilang dgn baris sebelumnya
+pd3=data.fillna(method="bfill")               # ganti data hilang dgn baris setelahya
+pd4=data.fillna(0)                            # ganti data hilang dng 0
+pd5=data.dropna()                             # hapus data hilang
+```
+
+Selain cara diatas, berikut ini juga dapat digunakan untuk mengisi maupun memperbaharui data yang hilang:
+
+```{python}
+pd6=data.fillna(data.mode().iloc[0])          # data data hilang dengan median() dan mean()
+```
+
+### Quiz 1 {-} 
+
+> Apa yang terjadi jika anda mengisi data yang hilang tersebut dengan dengan median() dan mean()? jelaskan!
+
+### Quiz 2  {-}
+
+> Bagaimana cara untuk memastikan apakah masih ada data yang hilang (data tidak lengkap) di `pd6` ?
+
+**Catatan:** Apabila data yang hilang berhubungan dengan analisis time series atau regresi makan akan digunakan pembaharuan data dengan interpolasi (bagian ini akan dibahas pada visualisasi data (line chart))
+
+
+## Statistik Dasar
+
+Selanjutnya, mengetahui informasi statistik dasar mengenai data tersebut. Dapat dilakukan dengan script berikut:
+
+```{python}
+data.describe()                              # informasi statistik dasar (data numerik saja)
+```
+
+### Quiz 3 {-}
+
+> Berdasarkan deskripsi statistik dasar di atas, apakah anda dapat menemukan informasi yang ganjil (janggal)? Jika iya, berikan penjelasan anda?
+
+Hasil statistik dasar diatas, hanya memperlihatkan data numerik saja. Lalu bagaimana dengan data kategori yang ada pada dataset tersebut? Gunakan script sebagai berikut:
+
+```{python}
+# untuk memilih data kategori digunakan include='object' dan sebaliknya gunakan include='number'
+kategori = data.select_dtypes(include='object')
+kategori.describe().transpose()
+```
+
+### Quiz 4 {-}
+
+> Perhatikan deskriptif statistik data kategorikal diatas , apakah informasi penting yang di temukan? 
+
+## Tabel Pivot
+
+Saat melakukan analisis dengan menggunakan fungsi `describe()`seperti yang kita lakukan diatas, terkadang tidak menjawab informasi yang kita inginkan. Karena semua deskripsi tersebut diperhitungkan berdasarkan kolom dari masing-masing variabel pada dataset. Olehkarena itu, jika anda ingin mengetahui deskriptif statistik berdasarkan indeks tertentu makan anda perlu menggunakan Tabel Pivot. Analisis statistik deskriptif tersebut akan diperlihatkan dengan fungsi agregasi `aggfunc` yang ada di Python, yaitu:
+
+* `sum` : yang digunakan untuk pejumlahan nilai pada indeks variabel yang sama.
+* `mean` : ~ nilai rata-rata ~
+* `min` :  ~ nilai minumum ~
+* `max` :  ~ nilai maksimum ~
+* `count` : frekuensi
+
+
+Untuk mengetahui jumlah total pengiriman dan total omset yang diperoleh JNE berdasarkan regionalnya, dapat diperlihatkan dengan script berikut:
+
+```{python}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+import numpy as np
+
+df=pd.pivot_table(data,index=['REGION'], values=['TOTAL_OMZET','JUMLAH_WEIGHT'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+df=df.sort_values(['TOTAL_OMZET','JUMLAH_WEIGHT'],ascending=True)
+
+print(df)
+```
+
+### Quiz 5 {-}
+
+> Buatlah script menggunakan Python untuk menyimpan data dari hasil tabel pivot di atas!
+
+Hasil dari Tabel Pivot diatas dapat diperlihatkan secara visual, perhatikan tabel berikut:
+
+```{python}
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.graph_objects as go
+
+# Menampilkan Hasil Tabel Pivot
+fig = go.Figure(data = [go.Table(
+   header = dict(values = list(df.columns),
+      fill_color = 'paleturquoise',
+      align = 'left'),
+   cells = dict(values = df.transpose().values.tolist(),
+      fill_color = 'lavender',
+      align = 'left'))])
+
+fig.show()
+```
+
+### Quiz 6 {-}
+
+> Andaikan Anda sebagai tim Audit melakukan ananlisa terhadap Total  pengiriman dan Total Omset yang diperoleh JNE berdasarkan Produknya. Dengan menggukanan tabel pivot dan visual seperti contoh diatas, apa yang anda temukan? 
+
+**Catatan:** Tabel Pivot dan visualisasi tabel diatas memang sangat membantu untuk menganalisis data. Tetapi dalam banyak kondisi, terdapat berbagai jenis visual (grafik) lainnya yang lebih efektif dan lebih interaktif untuk menjelaskan suatu informasi yang kita butuhkan. 
+
+## Pie-Chart
+
+Diagram lingkaran (Pie-Chart) adalah jenis grafik yang menyajikan sebuah nilai atau data dalam bentuk lingkaran. Diagram lingkaran memudahkan kita untuk mengetahui perbandingan suatu data terhadap keseluruhan data. Untuk membandingkan data satu dengan yang lainnya, maka sebuah lingkaran akan dibagi menjadi beberapa ruas lingkaran. 
+
+Pada umunya, penyajian data pada diagram lingkaran disajikan dalam bentuk derajat (°) dan persen (%). Jika data yang disajikan dalam bentuk derajat, maka ukuran satu lingkaran penuh besarnya adalah 360°. Sedangkan jika suatu data disajikan dalam persen, maka satu lingkaran penuh nilainya adalah 100%. Rumus yang digunakan adalah sebagai berikut:
+
+* Nilai yang ditanyakan (°) = (Besar sudut / 360°) x Total data
+* Nilai yang ditanyakan (%) = (Nilai persen yang ditanyakan / 100%) x Total nilai
+
+Berikut ini deperlihatkan grafik lingkaran untuk memperlihatkan Total Omset yang diperoleh JNE berdasarkan regionalnya.
+
+
+```{python}
+import plotly.express as px
+
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['REGION'], values=['TOTAL_OMZET'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# membuat grafik lingkaran (pie-chart)
+fig = px.pie(df, values='TOTAL_OMZET', names='REGION', hole=0.5, 
+             labels={'TOTAL_OMZET':'Total Omset','REGION':'Regional'})
+
+# Pengaturan detail grafik
+fig.update_layout(showlegend=True,
+                  autosize=False,
+                  width=800,
+                  height=600,
+                  title="Total Omset Berdasarkan Regional Per-miliar Rupiah");
+
+fig.update_traces(textposition='inside', textinfo='percent+label');
+
+fig.show()
+```
+
+Grafik tersebut diatas juga dapat dilengkapi dengan informasi lain, seperti halnya varibel total timbangan barang terkirim. Berikut ini script yang digunakan dalam Python:
+
+```{python}
+import plotly.express as px
+
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['REGION'], values=['TOTAL_OMZET','JUMLAH_WEIGHT'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# membuat grafik lingkaran (pie-chart)
+fig = px.pie(df, values='TOTAL_OMZET', names='REGION', hole=0.5,
+             hover_data=['JUMLAH_WEIGHT'], 
+             labels={'TOTAL_OMZET':'Total Omset',
+                     'REGION':'Regional', 
+                     'JUMLAH_WEIGHT':'Timbangan Barang (KG)'})
+
+# Pengaturan detail grafik
+fig.update_layout(showlegend=True,
+                  autosize=False,
+                  width=800,
+                  height=600,
+                  title="Omset Berdasarkan Regional Per-miliar Rupiah dan Timbangan Barang");
+
+fig.update_traces(textposition='inside', textinfo='percent+label');
+
+fig.show()
+```
+
+### Quiz 7 {-}
+
+> Setelah memperlajari visualisasi Pie-Chart diatas, bagamana jika anda sebagai tim audit ingin total (persentase) resi pengiriman barang berdasarkan regionalnya?
+
+## Bar-Chart
+
+Bar chart (Diagram batang) merupakan salah satu bentuk grafik yang digunakan untuk membandingkan data antar variabel dan melihat frekuensi atau besaran dari variabel tersebut. Berikut ini diperlihatkan contoh grafik untuk memperlihatkan **total pendapatan (omset) berdasarkan regional pelayanan JNE**.
+
+```{python, eval=F}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['REGION'], values='TOTAL_OMZET', aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+df=df.sort_values("TOTAL_OMZET",ascending=False)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(df, x='REGION', y='TOTAL_OMZET',color='REGION', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=False,
+                  title="Total Omset Berdasarkan Region",
+                  xaxis_title="Regional",
+                  yaxis_title="Per-miliar (Rp)")
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=-45)
+
+# Menghapus label di axis y
+fig.update_yaxes(showticklabels=False)
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside")
+fig.show()
+```
+
+
+```{python include=FALSE}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['REGION'], values='TOTAL_OMZET', aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+df=df.sort_values("TOTAL_OMZET",ascending=False)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(df, x='REGION', y='TOTAL_OMZET',color='REGION', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=False,
+                  title="Total Omset Berdasarkan Region",
+                  xaxis_title="Regional",
+                  yaxis_title="Per-miliar (Rp)");
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=-45);
+
+# Menghapus label di axis y
+fig.update_yaxes(showticklabels=False);
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside");
+```
+
+```{python echo=FALSE}
+fig.show()
+```
+
+Dengan konsep yang sama, berikut ini diperlihatkan contoh grafik untuk memperlihatkan **total pendapatan (omset) berdasarkan produk pelayanan JNE**.
+
+```{python, eval=F}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['SERVICES_CODE'], values='TOTAL_OMZET', aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+df=df.sort_values("TOTAL_OMZET",ascending=False).head(10)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(df, y='SERVICES_CODE', x='TOTAL_OMZET',color='SERVICES_CODE', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=False,
+                  title="Total Omset Berdasarkan Produk Pengirimannya",
+                  xaxis_title="Per-miliar (Rp)",
+                  yaxis_title="Pruduk")
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=0, showticklabels=False)
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside")
+fig.show()
+```
+
+```{python include=FALSE}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,index=['SERVICES_CODE'], values='TOTAL_OMZET', aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+df=df.sort_values("TOTAL_OMZET",ascending=False).head(10)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(df, y='SERVICES_CODE', x='TOTAL_OMZET',color='SERVICES_CODE', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=False,
+                  title="Total Omset Berdasarkan Produk Pengirimannya",
+                  xaxis_title="Per-miliar (Rp)",
+                  yaxis_title="Pruduk")
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=0, showticklabels=False)
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside")
+```
+
+```{python echo=FALSE}
+fig.show()
+```
+
+### Quiz 8 {-}
+
+>  seandainya anda ingin mengatur ukuran grafik Bar-Chart diatas, bagaimana caranya?
+
+
+## Box-plot 
+
+Penyajian grafik lainnya yang bisa merangkum informasi lebih detail mengenai distribusi nilai-nilai data pengamatan adalah Box and Whisker Plots atau lebih sering disebut dengan BoxPlot atau lebih sering dikenal sebagai chart candle stick di analisa pasar saham. Lihat contoh dibawah ini untuk dapat membaca box plot
+
+<center>
+<img src="https://github.com/sainzdata/Py_JNE/blob/main/images/box-plot.png?raw=true" width=500" height="400">
+</center>
+
+
+Penjelasannya:
+
+* Outlier/Pencilan artinya suatu angka yang memiliki nilai yang sangat berbeda jauh dengan nilai dari angka lainya pada data, angkanya bernilai 3/2 lebih besar dari quartil yang paling atas atau angkanya bernilai 3/2 lebih kecil dari quartil terendah.
+* Quartil Tertinggi artinya angka yang terbesar ke 75 jika data diurutkan. Jadi 25 persen angka dalam data bernilai lebih tinggi dari angka quartil ini.
+* Median adalah nilai tengah
+* Quartil Terendah artinya angka yang terbesar ke 25 jika data diurutkan. Jadi 25 persen angka dalam data bernilai lebih rendah dari angka quartil ini.
+
+
+Berikut ini diperlihatkan contoh analisis total omset berdasarkan asal dan tujuan pengiriman barang menggunakan Boxplot.
+
+```{python, eval=F}
+import plotly.express as px
+import pandas as pd
+import numpy as np
+
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,
+                  index=['PERIODE',
+                         'REGION', 
+                         'BRANCH_ID',
+                         'BRANCH_NAME',
+                         'SERVICES_CODE',
+                         'ZONE_DESTINATION'], 
+                  values=['TOTAL_OMZET'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# Grafik Box-plot
+fig = px.box(df, x="REGION", 
+             y="TOTAL_OMZET", 
+             color="ZONE_DESTINATION", 
+             notched=True     # used notched shape
+            )
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=True,
+                  title="Omset dari Asal ke Tujuan Pengiriman Masing2 Barang",
+                  xaxis_title="Regional",
+                  yaxis_title="Per-miliar (Rp)")
+
+# Menghapus label di axis x
+fig.update_xaxes(showticklabels=True)
+
+fig.show()
+```
+
+```{python, include=FALSE}
+import plotly.express as px
+import pandas as pd
+import numpy as np
+
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(data,
+                  index=['PERIODE',
+                         'REGION', 
+                         'BRANCH_ID',
+                         'BRANCH_NAME',
+                         'SERVICES_CODE',
+                         'ZONE_DESTINATION'], 
+                  values=['TOTAL_OMZET'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Konversi Total omset menjadi per-miliar 
+df["TOTAL_OMZET"] = (df['TOTAL_OMZET']/1000000000)
+
+# Grafik Box-plot
+fig = px.box(df, x="REGION", 
+             y="TOTAL_OMZET", 
+             color="ZONE_DESTINATION", 
+             notched=True     # used notched shape
+            )
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  showlegend=True,
+                  title="Omset dari Asal ke Tujuan Pengiriman Masing2 Barang",
+                  xaxis_title="Regional",
+                  yaxis_title="Per-miliar (Rp)")
+
+# Menghapus label di axis x
+fig.update_xaxes(showticklabels=True)
+```
+
+```{python echo=FALSE}
+fig.show()
+```
+
+
+## Scatter Plot 
+
+Scatter Plot atau Grafik Scatter juga disebut diagram diagram pencar adalah gambaran yang menunjukkan kemungkinan hubungan (korelasi) antara pasangan dua macam variabel dan menunjukkan keeratan hubungan antara dua variabel tersebut yang sering diwujudkan sebagai koefisien korelasi. Chek [link ini],  Berikut ini diperlihatkan hubungan antara total omset dan total resi pengiriman barang:
+
+```{python}
+https://plotly.com/python/line-and-scatter/
+# Grafik Scatter Plot
+fig = px.scatter(df, x="JUMLAH_AWB", y="TOTAL_OMZET", color="BRANCH_ID", size='TOTAL_OMZET')
+fig.show()
+```
+
+
+
+## Diagram Garis
+
+Diagram garis adalah penyajian data yang digunakan untuk menggambarkan suatu keadaan berupa data berkala atau berkelanjutan. Selain itu, diagram ini juga bisa dikatakan berhubungan dengan kurun waktu dan untuk menunjukkan perkembangan suatu keadaan. Diagram ini sangat tepat untuk menyajikan data untuk mengetahui kecenderungan kelakuan atau tren, seperti produksi minyak tiap tahun, jumlah kelahiran tiap tahun, jumlah produksi tiap jam, dan lain-lain.
+
+[Contoh: Klik disini](https://plotly.com/python/line-charts/)
+
+
+
+
+
+<!--chapter:end:03-Visualisasi_Data.Rmd-->
+
+# Mini Project
+
+Adapun beberapa hal yang dipelajari pada program pelatihan Data Analitics With Python pertemuan ke-4 ini adalah sebagai berikut:
+
+* Penggabungan data menggunakan 3 file dibawah ini: [(download data disini)](https://jne2-my.sharepoint.com/personal/ibnu_falah_jne_co_id/_layouts/15/onedrive.aspx?id=%2Fpersonal%2Fibnu%5Ffalah%5Fjne%5Fco%5Fid%2FDocuments%2FData%20for%20P%27%20Bakti&ga=1). 
+    1. OTS ARAP UPDATE 30092022.XLSX; 
+    2. OTS CURRENT 2022 UPDATE 30092022.XLSX; 
+    3. OTS CURRENT 2022 UPDATE 30092022 PART 2.XLSX)
+* Periksa data duplikat (Nomor connote apakah ada yang double)
+* Periksa data anomali (Memeriksa Data OTS yang nilai nya minus)
+* Data outstanding diurutkan berdasarkan nama customer – Dest Runsheet
+* Analisa nilai outstanding yang tinggi berdasarkan Regional – Cabang – Kurir.
+* Outstanding berdasarkan Kurir / ID Kurir (data kurir dapat dilihat di file ID Kurir.XLSX)
+
+
+## Impor Data
+
+Dalam proses impor (baca) data dari Excel ke Python, beberapa hal yang harus diperhatikan adalah:
+
+1. Pastikan Notebook Python (Koding) anda berada dalam satu folder
+2. Buatlah folder baru untuk meyimpan data tersebut (opsional) 
+3. Nama file excel tidak memuat spasi (gunakan underline `_` jika diperlukan). Dalam hal ini, penulis merubah nama variabel menjadi OTS1, OTS2, dan OTS3.
+4. impor packages/Library/Module yang diperlukan (dalam hal ini digunakan 'pandas')
+
+```{python, eval=F}
+import pandas as pd              # library untuk impor data
+f1 = pd.read_excel('data/Mini_Project/OTS1.xlsx') 
+f2 = pd.read_excel('data/Mini_Project/OTS2.xlsx') 
+f3 = pd.read_excel('data/Mini_Project/OTS3.xlsx') 
+```
+
+Berikutnya dilakukan pemerikasan struktur data dan informasi dasar pada dataset.
+
+```{python, eval=F}
+f3.info()                        # print struktur dan informasi dasar
+```
+
+Berdasarkan pengamatan yang dilakukan pada ke-3 file dataset di atas, diperoleh beberapa catatan sebagai berikut:
+
+1. Struktur data belum jelas karena nama variabel (kolom) pada file excel tidak ada pada baris pertama
+2. Data pada `OTS1.xlsx` tidak dapat terbaca dengan baik di Python. Langkah penyelesaian permasalahan ini adalah dengan cara `Copy-Paste` file tersebut ke file excel yang baru dan replace (menimpa) file yang lama. 
+3. Nama variabel (kolom) pada baris pertama belum sesuai (tidak sama).
+4. Banyak kolom tidak sama.
+
+**Catatan:** Jika tidak ingin menghapus baris pertama dari file Excel maka dapat dilakukan dengan parameter `skiprows=1`. Selain itu, anda juga dapat menggunakan parameter `header=2` untuk menunjukan nama variabel ada pada  baris ke-2. Terlebih daripada itu, jika anda ingin melewati baris pada indeks 0, 2 dan 5 dapat menggunakan `skiprows=[0,2,5]`
+
+```{python, eval=F}
+import pandas as pd              # library untuk impor data
+f1 = pd.read_excel('data/Mini_Project/OTS1.xlsx',skiprows=1, usecols='A:I, K') 
+f2 = pd.read_excel('data/Mini_Project/OTS2.xlsx',header=1) 
+f3 = pd.read_excel('data/Mini_Project/OTS3.xlsx',header=1) 
+```
+
+
+## Konversi Format File
+
+Saat mengerjakan proyek analitik data dengan jumlah pengamatan yang banyak, proses menyimpan dan memuat kembali data ke dalam memori menjadi lebih lambat, dan setiap kali anda melakukan restart pada kernel akan membutuhkan waktu tunggu yang cukup lama. Sehingga, sangat disarankan untuk menyimpan data dengan format terbaik. Menurut **Ilia Zaitsev** di dalam artikelnya pada laman [Towards Data Science](https://towardsdatascience.com/the-best-format-to-save-pandas-data-414dca023e0d) file EXCEL atau CSV atau format teks biasa lainnya bukanlah pilihan yang baik. Ini terbukti dari proses loading data pada ke-3 file Excel diatas **membutuhkan kurang lebih 3 menit untuk ukuran file 64 Mb**. Sehingga, untuk mempercepat proses loading data ini maka dilakukan proses penyimpanan data dengan format `feather`.
+
+```{python, eval=F}
+# pip install pyarrow`                                       # jangan lupa `install
+
+f1.to_feather('data/Mini_Project/OTS1.ftr')                  # data frame f1 ke `OTS1.ftr`
+f2.to_feather('data/Mini_Project/OTS2.ftr')                  # data frame f2 ke `OTS2.ftr`
+f3.to_feather('data/Mini_Project/OTS2.ftr')                  # data frame f1 ke `OTS1.ftr`
+```
+
+## Gabungkan Data
+
+Setelah meyimpanan data dengan format `feather`, selanjutnya dilakukan proses penggabungan data.
+
+```{python}
+import pandas as pd 
+ftr1=pd.read_feather('data/Mini_Project/OTS1.ftr')           # impor data 
+ftr2=pd.read_feather('data/Mini_Project/OTS2.ftr')           # impor data 
+ftr3=pd.read_feather('data/Mini_Project/OTS2.ftr')           # impor data 
+
+datagabung = pd.concat([ftr1,ftr2,ftr3],ignore_index=True)   # gabungkan semua data
+datagabung.info()                                            # informasi dasar 
+```
+
+**Catatan:** Banyaknya observasi (baris) sudah melebihi batas **maksimum file Excel 1048576 baris/kolom**.
+
+
+## Deskripsi Data  
+
+Berikut ini adalah deskripsi dataset yang sedang digunakan:
+
+* `Connote` : No Nomor yang diberikan oleh Seller/Penjual berguna untuk melacak sejauh mana proses pengiriman
+* `Order Id` : No Resi Pengiriman          
+* `Origin` :  Asal barang yang akan dikirimkan           
+* `Dest Runsheet` : Tujuan pengiriman      
+* `Amount` : Biaya Pengiriman           
+* `Project` : Jenis Project          
+* `POD Status` :  Process On delivery Detail adalah Paket atau barang sedang atau baru saja dikirimkan oleh kurir.   
+* `Customer Name`: Nama Pelanggan       
+* `Regional` : Regional          
+* `Kategori` :  Kategori           
+* `OUTSTANDING` : Capaian/Nilai akhir (Verifikasi biaya pengiriman)      
+
+**Catatan:** Data gabungan tersebut disimpan dengan format `feather`, sehingga untuk selanjutnya data ini yang akan di impor pada saat melakukan analisis.
+
+```{python}
+datagabung.to_feather('data/Mini_Project/datagabung.ftr') # data frame f1 ke `OTS1.ftr`
+```
+
+### Quiz 1
+
+Lakukan proses impor data dan memeriksa struktur data  dengan format `feather`!
+
+## Verifikasi Kelengkapan Data
+
+Dataset terkadang memuat data yang hilang, bisa saja karena tidak dikumpulkan atau tidak pernah ada. Sehingga, untuk melakukan analisa perlu dilakukan [pemeriksaan kelengkapan data](https://stackoverflow.com/questions/26266362/how-do-i-count-the-nan-values-in-a-column-in-pandas-dataframe) terlebih dahulu. 
+
+```{python}
+df=pd.read_feather('data/Mini_Project/datagabung.ftr')  # impor data 
+df.isna().sum()                                         # jlh data hilang disetiap kolom
+```
+
+Berikut ini diperlihatkan cara untuk mengekstrak baris yang berisi setidaknya satu nilai yang hilang:
+
+```{python}
+df[df.isna().any(axis=1)]
+```
+
+**Catatan:** Data yang hilang tersebut berasal dari file `OTS1.xlsx`
+
+## Perbaharui Data
+
+Berikut ini dilakukan proses penggantian data yang hilang menggunakan nilai dari kolom lain yang besesuaian barisnya.
+
+```{python}
+df['Order Id'] = df['Order Id'].fillna(value=df['Connote No'])
+df.isna().sum()    
+```
+
+### Quiz 2 
+
+Bagaimana jika anda ingin menggantikan semua nilai pada 'Order Id' adalah sama dengan 'Connote No'? Buatlah script anda menggunakan Python!
+
+## Periksa Data Duplikat
+
+Selain identifikasi missing values, kita juga dapat mengidentifikasi adanya data yang duplikat di dataframe Pandas. Anda dapat menggunakan metode berikut untuk [menghitung duplikat](https://blog.finxter.com/4-best-ways-to-count-duplicates-in-a-dataframe/):
+
+```{python}
+df.pivot_table(columns=['Connote No'], aggfunc='size')
+```
+
+Berikut ini contoh untuk memperlihatkan data duplikat dalam dataframe berdasarkan kolom `Connote No`:
+
+```{python}
+df[df.duplicated(['Connote No'])]
+```
+
+**Catatan:** Dari hasil pemeriksaan data duplikat diatas, diduga kuat bahwa data duplikat tersebut adalah data pengulangan. Olehkarena itu, data duplikat ini dapat dihapuskan. Untuk [menghapus data duplikat](https://www.statology.org/pandas-drop-duplicates/) ini dapat dilakukan dengan cara berikut:
+
+```{python}
+df = df.drop_duplicates(['Connote No'], keep='last') # hapus data duplikat 
+df.info()
+```
+
+## Periksa Data Anomali
+
+Pemeriksaan data anomali bertujuan untuk menemukan atau menganalisis suatu nilai yang dianggap menyimpangan atau memiliki keanehan yang terjadi atau dengan kata lain tidak seperti biasanya. Berikut ini dilakukan pemerikasaan data anomali dengan statistik deskriptif numerikal.
+
+
+```{python}
+df.describe()
+```
+
+**Catatan:** Ditemukan bahwa terdapat nilai `OUTSTANDING` yang negatif. 
+
+### Quiz 3
+
+Berikut ini diperlihatkan data `OUTSTANDING` yang bernilai negatif. Lengkapi script dibawah, jika anda ingin memperbaharui nilai pada kolom OUTSTANDING tersebut dengan menggunakan nilai dari kolom `Amount`.
+
+```{python}
+df.loc[df['OUTSTANDING'] < 0, 'OUTSTANDING']
+```
+
+Berikut ini diperlihatkan data2 yang memuat nilai negatif tersebut menggunakan fungsi [`query` yang disediakan library `pandas`](https://sparkbyexamples.com/pandas/pandas-filter-by-column-value/).
+
+```{python}
+ots_negatif = df.query("OUTSTANDING < 0")
+ots_negatif.info()
+```
+
+Untuk mengurutkan data `OUTSTANDING` negatif yang paling besar ke paling kecil dapat digunakan script berikut:
+
+```{python}
+ots_negatif.sort_values('OUTSTANDING', ascending=True)
+```
+
+### Quiz 4
+
+Perhatikan script dibawah ini, kemudian lakukan pembaharuan data `OUTSTANDING` yang bernilai negatif tersebut menjadi satu dataframe baru. Gunakan gunakan `pd.DataFrame()`.
+
+```{python}
+ots_negatif = df.query("OUTSTANDING < 0")
+```
+
+Berikut ini dilakukan pemerikasaan data anomali dengan statistik deskriptif kategorikal.
+
+```{python}
+ots_negatif = df.query("OUTSTANDING < 0")
+```
+
+Berikut ini dilakukan pemerikasaan data anomali dengan statistik deskriptif kategorikal.
+
+```{python}
+kategori = df.select_dtypes(include='object') # pilih data kategori
+kategori.describe().transpose()               # deskriptif kategorical
+```
+
+### Quiz 5
+
+Berikan pendapat (temuan) anda mengenai statistik deskriptif kategorikal diatas!
+
+## Membuat Kolom Baru
+
+Dalam analisis data terkadang kita perlu membuat kolom baru untuk menampung informasi yang lebih detail yang dapat membantu kita melihat lebih jauh tentang data yang sedang kita observasi. Untuk itu, pada tulisan ini, saya akan membahas cara menambahkan kolom baru pada dataframe pandas. Berikut ini dilakukan penambahan kolom baru untuk melihat `Selisih` nilai antara kolom `Amount` dan `OUTSTANDING`.
+
+```{python}
+df['Selisih'] = (df['OUTSTANDING']-df['Amount'])
+```
+
+### Quiz 6
+
+Dataframe diatas sudah memiliki kolom `Selisih` nilai dari kolom `Amount` dan `OUTSTANDING`. Bagaimana jika anda diminta untuk memperlihatkan nilai selisih yang lebih besar dan lebih kecil dari nol? tunjukan script dan hasilnya!
+
+## Analisis Outstanding
+
+### Regional
+
+Berikut ini adalah Analisa nilai outstanding yang berdasarkan Regional:
+
+```{python}
+# Tabel Pivot
+ots=pd.pivot_table(df,index=['Regional'], 
+                   values=['OUTSTANDING'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+ots.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+ots=ots.sort_values(['OUTSTANDING'],ascending=False).head(100)
+
+# Konversi Total omset menjadi per-juta 
+ots["OUTSTANDING"] = (ots['OUTSTANDING']/1000000)
+
+ots
+```
+
+```{python}
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(ots, y='OUTSTANDING', x='Regional',color='Regional', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  width=800,
+                  height=600,
+                  showlegend=False,
+                  title="Total OTS Berdasarkan Regional",
+                  xaxis_title="Regional",
+                  yaxis_title="Per-miliar (Rp)");
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=-45, showticklabels=True);
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside");
+
+fig.show()
+```
+
+### Pelanggan & Tujuan
+
+Berikut ini dperlihatkan pencapaian **(outstanding)** yang diurutkan berdasarkan nama `customer ~ Dest Runsheet`.
+
+```{python}
+# Tabel Pivot
+ots=pd.pivot_table(df,index=['Customer Name','Dest Runsheet'], 
+                   values=['OUTSTANDING'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+ots.reset_index(inplace=True)
+
+# Urutkan data dari yang besar ke kecil
+ots=ots.sort_values(['OUTSTANDING'],ascending=False).head(100)
+
+# Konversi Total omset menjadi per-juta 
+ots["OUTSTANDING"] = (ots['OUTSTANDING']/1000000)
+
+ots
+```
+
+Untuk menganalisis secara visual, dapat diperlihatkan dengan menggunakan `Bar-Chart` sebagai berikut:
+
+```{python}
+# impor library yg dibutuhkan untuk visualisasi
+import plotly.express as px
+
+# membuat grafik batang (bar-chart)
+fig = px.bar(ots, y='Dest Runsheet', x='OUTSTANDING',color='Customer Name', text_auto='.2s')
+
+# Pengaturan detail grafik
+fig.update_layout(barmode='stack',
+                  width=1000,
+                  height=600,
+                  showlegend=True,
+                  title="Total OTS Berdasarkan Tujuan Pengiriman",
+                  xaxis_title="Per-miliar (Rp)",
+                  yaxis_title="Tujuan Pengiriman");
+
+# Pengaturan rotasi axis x (+-360 derajat)
+fig.update_xaxes(tickangle=0, showticklabels=False);
+
+# Pengaturan posisi, ukuran, dan rotasi teks
+fig.update_traces(textfont_size=12, textangle=0, textposition="outside");
+
+fig.show()
+```
+
+### Quiz 7
+
+Buatlah Analisa nilai outstanding yang berdasarkan `Dest Runsheet` dan `POD Status`
+
+### Quiz 8 
+
+Buatlah Analisa nilai outstanding yang berdasarkan `Origin` dan `Dest Runsheet`
+
+### Projek
+
+Berikut ini diperlihatkan analisis Outstanding berdasarkan persentase `Project`:
+
+```{python}
+# Tabel Pivot untuk menghitung jumlah omzet berdasarkan Region
+df=pd.pivot_table(df,index=['Project'], values=['OUTSTANDING'], aggfunc='sum')
+
+# Komfersi indeks menjadi Kolom
+df.reset_index(inplace=True)
+
+# Konversi Total omset menjadi per-miliar 
+df["OUTSTANDING"] = (df['OUTSTANDING']/1000000000)
+
+import plotly.express as px
+# membuat grafik lingkaran (pie-chart)
+fig = px.pie(df, values='OUTSTANDING', names='Project', hole=0.5)
+
+# Pengaturan detail grafik
+fig.update_layout(showlegend=True,
+                  autosize=False,
+                  width=800,
+                  height=600,
+                  title="Total Outstanding berdasarkan persentase `Project`");
+
+fig.update_traces(textposition='outside', textinfo='percent+label');
+
+fig.show()
+
+```
+
+
+
+<!--chapter:end:04-Mini_Project.Rmd-->
+
+# Studi Kasus
+
+Materi masih dalam proses pengembangan oleh Tim
+
+<!--chapter:end:05-Studi_Kasus.Rmd-->
+
+`r if (knitr:::is_html_output()) '
+# Referensi {-}
+'`
+
+##  Pertemuan 1 {-}
+
+1.    https://www.tutorialspoint.com/r/index.htm
+2.    https://www.statista.com/chart/16567/popular-programming-languages/
+3.    https://www.anotherbookondatascience.com/chapter1.html
+4.    https://www.kodefungsi.com/fungsi/PYTHON/
+5.    https://www.anotherbookondatascience.com/chapter1.html
+6.    https://www.petanikode.com
+7.    https://stiki-indonesia.ac.id/2021/03/23/perkembangan-python-dan-alasan-sangat-penting-untuk-data-analitik/
+
+
+
+
+
+<!--chapter:end:06-Referensi.Rmd-->
+
